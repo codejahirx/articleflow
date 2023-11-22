@@ -1,0 +1,46 @@
+#container {
+  background-color: #fff;
+  border: 1px solid #f8f9fa;
+
+}
+
+#content,
+#sidebar {
+  border: 1px solid #f8f9fa;
+}
+
+#banner {
+  padding: 20px 0;
+  text-align: center;
+  height: 110px;
+}
+
+.container-fluid {
+  border: 1px solid #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+  /* Removes underline */
+}
+
+.text-center {
+  margin: 5px;
+}
+
+.trendy-posts,
+.related-post li {
+  list-style: square;
+
+
+}
+
+
+
+
+
+
+#footer {
+  background-color: #f8f9fa;
+  text-align: center;
+}

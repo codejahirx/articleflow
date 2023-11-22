@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Article Flow
+{% endblock %}
+
+{% block content %}
+  <div class="row row-cols-2">
+    {% for post in all_posts %}
+      <div class="col-12 col-md-6 mb-4">
+        <div class="card">
+          <img class="card-img-top img-fluid" src="{{ post.images.url }}" alt="Card image cap" />
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title|truncatechars:45 }}</h5>
+            <small><b>Category</b>: {{ post.category }}</small>
+            <p class="card-text">{{ post.content|truncatechars:150 }}</p>
+            <p class="card-text">
+              <small class="text-muted">{{ post.created_at }}</small>
+            </p>
+            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read more</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block pagination %}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center my-3">
+      {% if pagination.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ pagination.previous_page_number }}">Previous</a>
+        </li>
+      {% endif %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#">Page {{ pagination.number }} of {{ pagination.paginator.num_pages }}</a>
+      </li>
+      {% if pagination.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ pagination.next_page_number }}">Next</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}
+
+<div class="col-12 col-md-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4>Search</h4>
+      <!-- Your search form here -->
+    </div>
+  </div>
+  {% block category %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4>Category</h4>
+        <ul class="list-group list-group-flush">
+          {% for x in all_cats %}
+            <li class="list-group-item">
+              <a href="{% url 'category' x.slug %}">{{ x.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block sidebarposts %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4>Trending Posts</h4>
+        <ul class="list-group list-group-flush">
+          {% for x in trending_posts %}
+            <li class="list-group-item">
+              <a href="{% url 'post_detail' x.slug %}">{{ x.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block cloudtags %}
+    <div class="card">
+      <div class="card-body">
+        <h4>Popular Tags</h4>
+        {% for tag in all_tags %}
+          <a href="{% url 'tag_posts' tag.slug %}" class="btn btn-secondary btn-sm m-1">{{ tag.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  {% endblock %}
+</div>
